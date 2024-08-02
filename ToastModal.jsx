@@ -138,6 +138,15 @@ const ToastModal = ({
               {title}
             </Text>
           )}
+          {title && message && (
+            <View
+              style={{
+                height: 1,
+                backgroundColor: 'black',
+                width: '100%',
+              }}
+            />
+          )}
           <Text
             style={{
               color: messageColor || 'black',
