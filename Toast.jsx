@@ -1,43 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, Dimensions, StyleProp, ViewStyle } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, Text, TouchableOpacity, Dimensions } from 'react-native';
 import Animated, { Easing, useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
 
 let toastIdCounter = 0; // Unique ID generator for toasts
 
-type ToastProps = {
-  id?: number; // Unique ID for each toast
-  visible: boolean;
-  onDismiss?: (id: number) => void;
-  title?: string;
-  titleColor?: string;
-  titleSize?: number;
-  titleLineHeight?: number;
-  message?: string;
-  messageColor?: string;
-  messageSize?: number;
-  messageLineHeight?: number;
-  maxMessageLength?: number;
-  backgroundColor?: string;
-  icon?: React.ComponentType<{ color: string }>;
-  iconColor?: string;
-  closeIcon?: React.ComponentType<{ color: string }>;
-  close?: boolean;
-  timeout?: number;
-  verticalPosition?: 'top' | 'center' | 'bottom';
-  horizontalPosition?: 'left' | 'center' | 'right';
-  direction?: 'top' | 'bottom' | 'left' | 'right';
-  theme?: 'success' | 'error' | 'info' | 'warning';
-  animationDuration?: number;
-  containerStyle?: StyleProp<ViewStyle>;
-  titleStyle?: StyleProp<ViewStyle>;
-  messageStyle?: StyleProp<ViewStyle>;
-  onShow?: (id: number) => void;
-  onHide?: (id: number) => void;
-};
-
 const { width, height } = Dimensions.get('window');
 
-const Toast: React.FC<ToastProps> = ({
+const Toast = ({
   id = toastIdCounter++, // Assign unique ID automatically
   visible,
   onDismiss,
@@ -131,7 +100,7 @@ const Toast: React.FC<ToastProps> = ({
   const effectiveMessageColor = appliedTheme.messageColor || messageColor;
   const effectiveIconColor = appliedTheme.iconColor || iconColor;
 
-  const finalContainerStyle: StyleProp<ViewStyle> = {
+  const finalContainerStyle = {
     backgroundColor: effectiveBackgroundColor,
     position: 'absolute',
     padding: 15,
@@ -168,20 +137,27 @@ const Toast: React.FC<ToastProps> = ({
         <View style={{ flex: 1 }}>
           {title && (
             <Text
-              style={[
-                { color: effectiveTitleColor, fontSize: titleSize, lineHeight: titleLineHeight, fontWeight: 'bold', flexShrink: 1 },
-                titleStyle,
-              ]}
+              style={{
+                color: effectiveTitleColor,
+                fontSize: titleSize,
+                lineHeight: titleLineHeight,
+                fontWeight: 'bold',
+                flexShrink: 1,
+                ...titleStyle,
+              }}
             >
               {title}
             </Text>
           )}
           {truncatedMessage && (
             <Text
-              style={[
-                { color: effectiveMessageColor, fontSize: messageSize, lineHeight: messageLineHeight, marginTop: 5 },
-                messageStyle,
-              ]}
+              style={{
+                color: effectiveMessageColor,
+                fontSize: messageSize,
+                lineHeight: messageLineHeight,
+                marginTop: 5,
+                ...messageStyle,
+              }}
             >
               {truncatedMessage}
             </Text>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, Button, ScrollView, StyleSheet } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import Toast from "./Toast"; // Adjust the path based on your setup
+import Toast from "@shivrajkadam/react-native-toast-alerts"; // Adjust the path based on your setup
 
 const App = () => {
   const [toasts, setToasts] = useState([]);
